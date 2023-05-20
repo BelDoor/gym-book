@@ -84,11 +84,11 @@ public class User {
 
     @JsonIgnore
     @Column(nullable = false)
-    private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp created;
 
     @JsonIgnore
     @Column(nullable = false)
-    private Timestamp changed = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp changed;
 
     @JsonIgnore
     @Column(name = "actively", nullable = false)
