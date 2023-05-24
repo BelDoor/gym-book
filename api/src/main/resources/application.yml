@@ -8,6 +8,16 @@ spring:
     password: root
     url: "jdbc:postgresql://localhost:5432/gym_book?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC"
     driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    baseline-description: Flyway Scripts
+    locations: classpath:/db.migration
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    url: ${spring.datasource.url}
+    default-schema: public
+    validate-on-migrate: false
   jpa:
     show-sql: true
     properties:

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication(scanBasePackages = "com.gym")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableWebMvc
+
 @Import(
         {ConfigurationApp.class}
 )

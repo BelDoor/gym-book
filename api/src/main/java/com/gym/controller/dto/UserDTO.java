@@ -1,7 +1,9 @@
-package com.gym.controller.rest.dto.user;
+package com.gym.controller.dto;
 
 
 import com.gym.domain.column.Gender;
+import com.gym.domain.entity.ParameterGym;
+import com.gym.domain.entity.Role;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -12,6 +14,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Set;
 
 @Data
 public class UserDTO {
@@ -48,4 +52,9 @@ public class UserDTO {
     @NotNull
     @Positive
     private Long userPhone;
+
+    private Set<Role> roles = Collections.emptySet();
+
+    private Set<ParameterGym> parameterGyms = Collections.emptySet();
+
 }

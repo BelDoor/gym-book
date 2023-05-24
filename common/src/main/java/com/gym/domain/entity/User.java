@@ -38,10 +38,10 @@ import java.util.Set;
 @Setter
 @Getter
 @EqualsAndHashCode(exclude = {
-        "roles"
+        "roles", "parameterGyms"
 })
 @ToString(exclude = {
-        "roles"
+        "roles", "parameterGyms"
 })
 
 @Entity
@@ -99,4 +99,7 @@ public class User {
     @JsonManagedReference
     private Set<Role> roles = Collections.emptySet();
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+    @JsonManagedReference
+    private Set<ParameterGym> parameterGyms = Collections.emptySet();
 }

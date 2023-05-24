@@ -1,7 +1,7 @@
 package com.gym.controller.rest;
 
 
-import com.gym.controller.rest.dto.user.UserDTO;
+import com.gym.controller.dto.UserDTO;
 import com.gym.domain.entity.User;
 import com.gym.service.user.UserService;
 import com.gym.util.exception.custom.UserNotFoundException;
@@ -15,20 +15,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/rest/user")
+@RequestMapping("/rest/users")
 @RequiredArgsConstructor
-public class UserController {
+public class UsersController {
 
     private final UserService userService;
     private final ModelMapper modelMapper;
@@ -43,7 +42,9 @@ public class UserController {
 
     @GetMapping("/{user_id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable("user_id") Long id) {
+
         User user = userService.findById(id);
+
         return new ResponseEntity<>(convertToUserDto(user), HttpStatus.OK);
     }
 
@@ -57,6 +58,27 @@ public class UserController {
 
         userService.save(convertToUser(userDTO));
         return ResponseEntity.ok(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id,
+                                           @Valid @RequestBody UserDTO userDTO,
+                                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+          //TODO
+        }
+
+        User updatedUser = userService.update(id, convertToUser(userDTO));
+
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
+
+    @GetMapping("/search-by-phone-number/{phoneNumber}")
+    public ResponseEntity<UserDTO> findUserByPhoneNumber( @PathVariable Long phoneNumber) {
+
+        User user = userService.findUserByPhoneNumber(phoneNumber);
+
+      return new ResponseEntity<>(convertToUserDto(user), HttpStatus.OK);
     }
 
 

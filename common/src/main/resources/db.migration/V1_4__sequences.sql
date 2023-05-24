@@ -1,0 +1,1 @@
+-- ALTER SEQUENCE public.users_user_id_seq start 50 increment 1 restart 49;
