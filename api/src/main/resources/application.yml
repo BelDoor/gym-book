@@ -24,3 +24,8 @@ spring:
       hibernate:
         current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
         format_sql: true
+---
+
+jwtconfig:
+  secret: secret
+  expiration: 60000

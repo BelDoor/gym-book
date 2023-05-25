@@ -17,4 +17,6 @@ public interface UserService {
     User update(Long id, User user);
 
     User findUserByPhoneNumber(Long phoneNumber);
+
+    Optional<User> findEmail(String email);
 }

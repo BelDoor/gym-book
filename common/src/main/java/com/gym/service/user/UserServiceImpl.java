@@ -55,6 +55,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findUserByPhoneNumber(phoneNumber).orElseThrow(UserNotFoundException::new);
     }
 
+    @Override
+    public Optional<User> findEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
     private void enrichUser(User user) {
 
         user.setCreated(Timestamp.valueOf(LocalDateTime.now()));
