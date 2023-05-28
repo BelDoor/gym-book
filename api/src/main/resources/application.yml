@@ -27,5 +27,5 @@ spring:
 ---
 
 jwtconfig:
-  secret: secret
-  expiration: 60000
+  secret: gyms
+  expiration: 600000

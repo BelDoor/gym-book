@@ -52,7 +52,7 @@ public class UsersController {
     public ResponseEntity<HttpStatus> save(@RequestBody @Valid UserDTO userDTO,
                                            BindingResult bindingResult){
 
-        if(bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             //TODO
         }
 
@@ -65,7 +65,7 @@ public class UsersController {
                                            @Valid @RequestBody UserDTO userDTO,
                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-          //TODO
+            //TODO
         }
 
         User updatedUser = userService.update(id, convertToUser(userDTO));
@@ -74,13 +74,12 @@ public class UsersController {
     }
 
     @GetMapping("/search-by-phone-number/{phoneNumber}")
-    public ResponseEntity<UserDTO> findUserByPhoneNumber( @PathVariable Long phoneNumber) {
+    public ResponseEntity<UserDTO> findUserByPhoneNumber(@PathVariable Long phoneNumber) {
 
         User user = userService.findUserByPhoneNumber(phoneNumber);
 
-      return new ResponseEntity<>(convertToUserDto(user), HttpStatus.OK);
+        return new ResponseEntity<>(convertToUserDto(user), HttpStatus.OK);
     }
-
 
     @ExceptionHandler
     private ResponseEntity<UserError> handlerException(UserNotFoundException e) {
@@ -90,11 +89,11 @@ public class UsersController {
         return new ResponseEntity<>(userError, HttpStatus.NOT_FOUND);
     }
 
-    private User convertToUser(UserDTO userDto){
+    private User convertToUser(UserDTO userDto) {
         return modelMapper.map(userDto, User.class);
     }
 
-    private UserDTO convertToUserDto(User user){
+    private UserDTO convertToUserDto(User user) {
         return modelMapper.map(user, UserDTO.class);
     }
 
