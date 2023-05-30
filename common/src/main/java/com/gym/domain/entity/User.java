@@ -23,12 +23,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Set;
 
@@ -38,15 +33,15 @@ import java.util.Set;
 @Setter
 @Getter
 @EqualsAndHashCode(exclude = {
-        "roles", "parameterGyms"
+        "roles", "parameterGyms", "targetGyms"
 })
 @ToString(exclude = {
-        "roles", "parameterGyms"
+        "roles", "parameterGyms", "targetGyms"
 })
 
 @Entity
 @Table(name = "users")
-public class User {
+public class  User {
 
     @Id
     @Column(name = "user_id")
@@ -102,4 +97,8 @@ public class User {
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
     @JsonManagedReference
     private Set<ParameterGym> parameterGyms = Collections.emptySet();
+
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+    @JsonManagedReference
+    private Set<TargetGym> targetGyms = Collections.emptySet();
 }

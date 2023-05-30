@@ -1,9 +1,7 @@
 package com.gym.controller.rest;
 
 import com.gym.controller.dto.ParameterGymDTO;
-import com.gym.controller.dto.RoleDTO;
 import com.gym.domain.entity.ParameterGym;
-import com.gym.domain.entity.Role;
 import com.gym.service.parameter.ParameterGymService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -27,6 +25,7 @@ import java.util.stream.Collectors;
 public class ParameterGymController{
 
     private final ParameterGymService service;
+
     private final ModelMapper model;
 
     @GetMapping

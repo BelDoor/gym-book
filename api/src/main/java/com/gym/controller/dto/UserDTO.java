@@ -4,6 +4,7 @@ package com.gym.controller.dto;
 import com.gym.domain.column.Gender;
 import com.gym.domain.entity.ParameterGym;
 import com.gym.domain.entity.Role;
+import com.gym.domain.entity.TargetGym;
 import lombok.Data;
 
 import javax.persistence.EnumType;
@@ -56,5 +57,7 @@ public class UserDTO {
     private Set<Role> roles = Collections.emptySet();
 
     private Set<ParameterGym> parameterGyms = Collections.emptySet();
+
+    private Set<TargetGym> targetGyms  = Collections.emptySet();
 
 }

@@ -1,7 +1,6 @@
 package com.gym.service.parameter;
 
 import com.gym.domain.entity.ParameterGym;
-import com.gym.domain.entity.Role;
 import com.gym.domain.entity.User;
 import com.gym.repository.ParameterGymRepository;
 import com.gym.service.user.UserService;
@@ -18,7 +17,7 @@ import java.util.Optional;
 public class ParameterGymServiceImpl implements ParameterGymService {
 
     private final ParameterGymRepository repository;
-    private final UserService service;
+    private final UserService userService;
 
     @Override
     public ParameterGym findById(Long id) {
@@ -35,7 +34,7 @@ public class ParameterGymServiceImpl implements ParameterGymService {
     @Override
     public void save(Long userId, ParameterGym parameterGym) {
 
-        User user = service.findById(userId);
+        User user = userService.findById(userId);
 
         parameterGym.setUserId(user);
         repository.save(parameterGym);
