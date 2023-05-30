@@ -47,7 +47,7 @@ public class UserDTO {
 
     @Email
  //   @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z]).{6,}$")
-    @NotEmpty(message = "Should not be empty")
+    @NotEmpty(message = "Should not be empty!")
     private String userEmail;
 
     @NotNull
