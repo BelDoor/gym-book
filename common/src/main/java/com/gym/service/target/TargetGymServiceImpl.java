@@ -1,6 +1,5 @@
 package com.gym.service.target;
 
-import com.gym.domain.entity.ParameterGym;
 import com.gym.domain.entity.TargetGym;
 import com.gym.domain.entity.User;
 import com.gym.repository.TargetGymRepository;
@@ -9,6 +8,8 @@ import com.gym.util.exception.custom.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +38,7 @@ public class TargetGymServiceImpl implements TargetGymService{
         User user = userService.findById(userId);
 
         targetGym.setUserId(user);
+        targetGym.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         repository.save(targetGym);
     }
 
@@ -49,7 +51,14 @@ public class TargetGymServiceImpl implements TargetGymService{
     public TargetGym updateTargetGym(Long id, TargetGym targetGym) {
 
         TargetGym targetGymUpdate = findById(id);
-        targetGymUpdate = targetGym;
+
+        targetGymUpdate.setTargetWeight(targetGym.getTargetWeight());
+        targetGymUpdate.setTargetFatPercent(targetGym.getTargetFatPercent());
+        targetGymUpdate.setTargetBench(targetGym.getTargetBench());
+        targetGymUpdate.setTargetSquat(targetGym.getTargetSquat());
+        targetGymUpdate.setTargetTraction(targetGym.getTargetTraction());
+        targetGymUpdate.setChanged(Timestamp.valueOf(LocalDateTime.now()));
+
         return createTargetGym(targetGymUpdate);
     }
 

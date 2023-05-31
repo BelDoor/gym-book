@@ -2,7 +2,7 @@ package com.gym.controller.dto;
 
 
 import com.gym.domain.column.Gender;
-import com.gym.domain.entity.ParameterGym;
+import com.gym.domain.entity.parameter.ParameterGym;
 import com.gym.domain.entity.Role;
 import com.gym.domain.entity.TargetGym;
 import lombok.Data;
@@ -47,7 +47,7 @@ public class UserDTO {
 
     @Email
  //   @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z]).{6,}$")
-    @NotEmpty(message = "Should not be empty!")
+    @NotEmpty(message = "Should not be empty")
     private String userEmail;
 
     @NotNull

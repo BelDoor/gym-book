@@ -3,6 +3,7 @@ package com.gym.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gym.domain.column.Gender;
+import com.gym.domain.entity.parameter.ParameterGym;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

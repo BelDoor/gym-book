@@ -1,7 +1,7 @@
 package com.gym.service.parameter;
 
-import com.gym.domain.entity.ParameterGym;
-import com.gym.domain.entity.Role;
+import com.gym.domain.entity.parameter.ParameterGym;
+import com.gym.domain.entity.parameter.ParameterGymUpdate;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public interface ParameterGymService {
 
     ParameterGym createParameterGym(ParameterGym parameterGym);
 
-    ParameterGym updateParameterGym(Long id, ParameterGym parameterGym);
+    ParameterGym updateParameterGym(Long id, ParameterGymUpdate parameterUpdate);
 
     void deleteParameter(Long id);
 }

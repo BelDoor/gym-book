@@ -1,6 +1,6 @@
 package com.gym.repository;
 
-import com.gym.domain.entity.ParameterGym;
+import com.gym.domain.entity.parameter.ParameterGym;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

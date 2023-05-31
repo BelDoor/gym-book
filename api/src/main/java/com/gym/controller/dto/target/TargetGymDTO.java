@@ -1,4 +1,4 @@
-package com.gym.controller.dto;
+package com.gym.controller.dto.target;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.gym.domain.entity.User;
@@ -11,34 +11,34 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Data
-public class ParameterGymDTO {
+public class TargetGymDTO {
 
     @NotNull
     @Positive
-    private Double weight;
+    private double targetWeight;
 
     @NotNull
     @Positive
-    private Double fatPercent;
+    private double targetFatPercent;
 
     @NotNull
     @Positive
-    private Double maxBench;
+    private double targetBench;
 
     @NotNull
     @Positive
-    private Double maxSquat;
+    private double targetSquat;
 
     @NotNull
     @Positive
-    private Double maxTraction;
+    private double targetTraction;
 
 
     @Column(nullable = false)
     private Timestamp created = Timestamp.valueOf(LocalDateTime.now());
 
     @JsonIgnoreProperties({"firstName", "created", "changed", "isActively", "userPassword",
-            "gender", "surname", "birthday", "parameterGyms", "roles", "userPhone"})
+            "gender", "surname", "birthday", "parameterGyms", "roles", "userPhone", "targetGyms"})
     private User user;
 
 }

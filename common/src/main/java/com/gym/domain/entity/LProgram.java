@@ -1,8 +1,7 @@
 package com.gym.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.gym.domain.entity.parameter.ParameterGym;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -11,22 +10,17 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,58 +28,54 @@ import java.util.Set;
 @Setter
 @Getter
 @EqualsAndHashCode(exclude = {
-        "userId", "targetGymId"
+        "userId", "targetGymId", "parameterGymId"
 })
 @ToString(exclude = {
-        "userId", "targetGymId"
+        "userId", "targetGymId", "parameterGymId"
 })
 
 @Entity
-@Table(name = "target_gym")
-public class TargetGym {
+@Table(name = "l_program")
+public class LProgram {
 
     @Id
-    @Column(name = "target_id")
+    @Column(name = "id_parameter_target")
     @GeneratedValue(generator = "target_gym_target_id_seq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "target_gym_target_id_seq",
             sequenceName = "target_gym_target_id_seq", allocationSize = 1, initialValue = 100)
-    private Long targetId;
+    private Long programId;
 
-    @Column(name = "target_weight")
+    @Column(name = "data_start")
     @NotNull
-    private double targetWeight;
+    private Timestamp dataStart;
 
-    @Column(name = "target_fat_percent")
+    @Column(name = "data_end")
     @NotNull
-    private double targetFatPercent;
+    private Timestamp dataEnd;
 
-    @Column(name = "target_bench")
+    @Column(name = "gym_program")
     @NotNull
-    private double targetBench;
+    private String gymProgram;
 
-    @Column(name = "target_squat")
+    @Column(name = "created")
     @NotNull
-    private double targetSquat;
-
-    @Column(name = "target_traction")
-    @NotNull
-    private double targetTraction;
-
-    @JsonIgnore
-    @Column(nullable = false)
     private Timestamp created;
 
-    @JsonIgnore
-    @Column(nullable = false)
+    @Column(name = "changed")
+    @NotNull
     private Timestamp changed;
 
+    @Column(name = "actively")
+    @NotNull
+    private boolean actively;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "target_id")
     @JsonBackReference
-    private User userId;
+    private TargetGym targetGymId;
 
-    @OneToMany(mappedBy = "targetGymId", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-    @JsonManagedReference
-    private Set<LProgram> program = Collections.emptySet();
-
+    @ManyToOne
+    @JoinColumn(name = "parameter_id")
+    @JsonBackReference
+    private ParameterGym parameterGymId;
 }

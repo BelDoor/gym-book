@@ -1,16 +1,20 @@
 package com.gym.controller.rest;
 
-import com.gym.controller.dto.ParameterGymDTO;
-import com.gym.domain.entity.ParameterGym;
+import com.gym.controller.dto.parameter.ParameterGymDTO;
+import com.gym.controller.dto.parameter.ParameterGymRequest;
+import com.gym.domain.entity.parameter.ParameterGym;
+import com.gym.domain.entity.parameter.ParameterGymUpdate;
 import com.gym.service.parameter.ParameterGymService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,10 +50,23 @@ public class ParameterGymController{
 
     @PostMapping("/{user_id}")
     public ResponseEntity<HttpStatus> createParameter(@PathVariable("user_id") Long userId,
-                                                 @RequestBody @Valid ParameterGymDTO parameterGymDTO) {
+                                                 @RequestBody @Valid ParameterGymRequest parameter) {
 
-        service.save(userId, convertToParameterGym(parameterGymDTO));
+        service.save(userId, convertToParameterGymRequest(parameter)/*convertToParameterGym(parameterGymDTO)*/);
         return ResponseEntity.ok(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<HttpStatus> updateParameters(@PathVariable Long id,
+                                           @Valid @RequestBody ParameterGymUpdate parameterGymUpdate,
+                                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            //TODO
+        }
+
+        ParameterGym updatedParameter = service.updateParameterGym(id, parameterGymUpdate);
+
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
@@ -67,5 +84,9 @@ public class ParameterGymController{
 
     private ParameterGym convertToParameterGym(ParameterGymDTO parameterGymDTO){
         return model.map(parameterGymDTO, ParameterGym.class);
+    }
+
+    private ParameterGym convertToParameterGymRequest(ParameterGymRequest parameter){
+        return model.map(parameter, ParameterGym.class);
     }
 }

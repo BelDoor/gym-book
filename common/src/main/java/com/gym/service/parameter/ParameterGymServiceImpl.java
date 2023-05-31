@@ -1,7 +1,8 @@
 package com.gym.service.parameter;
 
-import com.gym.domain.entity.ParameterGym;
+import com.gym.domain.entity.parameter.ParameterGym;
 import com.gym.domain.entity.User;
+import com.gym.domain.entity.parameter.ParameterGymUpdate;
 import com.gym.repository.ParameterGymRepository;
 import com.gym.service.user.UserService;
 import com.gym.util.exception.custom.UserNotFoundException;
@@ -9,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,7 +25,7 @@ public class ParameterGymServiceImpl implements ParameterGymService {
     @Override
     public ParameterGym findById(Long id) {
         Optional<ParameterGym> parameterGym = repository.findById(id);
-        return parameterGym.orElseThrow(UserNotFoundException::new);
+        return parameterGym.orElseThrow(UserNotFoundException::new); // TODO
     }
 
     @Override
@@ -37,6 +40,7 @@ public class ParameterGymServiceImpl implements ParameterGymService {
         User user = userService.findById(userId);
 
         parameterGym.setUserId(user);
+        parameterGym.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         repository.save(parameterGym);
     }
 
@@ -54,10 +58,19 @@ public class ParameterGymServiceImpl implements ParameterGymService {
 
     @Override
     @Transactional
-    public ParameterGym updateParameterGym(Long id, ParameterGym parameterGym) {
+    public ParameterGym updateParameterGym(Long id, ParameterGymUpdate parameterUpdate) {
 
-        ParameterGym parameterUpdate = findById(id);
-        parameterUpdate = parameterGym;
-        return createParameterGym(parameterUpdate);
+        ParameterGym parameter = findById(id);
+
+        parameter.setWeight(parameterUpdate.getWeight());
+        parameter.setFatPercent(parameterUpdate.getFatPercent());
+        parameter.setMaxBench(parameterUpdate.getMaxBench());
+        parameter.setMaxSquat(parameterUpdate.getMaxSquat());
+        parameter.setMaxTraction(parameterUpdate.getMaxTraction());
+        parameter.setChanged(Timestamp.valueOf(LocalDateTime.now()));
+
+        return createParameterGym(parameter);
     }
+
+
 }
