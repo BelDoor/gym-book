@@ -46,6 +46,8 @@ public class LProgramServiceImpl implements LProgramService {
         lProgram.setParameterGymId(parameterGym);
         lProgram.setTargetGymId(targetGym);
         lProgram.setCreated(Timestamp.valueOf(LocalDateTime.now()));
+        lProgram.setActively(true);
+
         repository.save(lProgram);
     }
 
@@ -60,7 +62,10 @@ public class LProgramServiceImpl implements LProgramService {
     @Override
     public LProgram updateLProgram(Long id, LProgram lProgram) {
         LProgram programUpdate = findById(id);
-        programUpdate = lProgram;
+
+        programUpdate.setDataStart(lProgram.getDataStart());
+        programUpdate.setDataEnd(lProgram.getDataEnd());
+        programUpdate.setGymProgram(lProgram.getGymProgram());
 
         programUpdate.setCreated(Timestamp.valueOf(LocalDateTime.now()));
         return createLProgram(programUpdate);

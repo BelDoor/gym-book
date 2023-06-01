@@ -34,10 +34,10 @@ import java.util.Set;
 @Setter
 @Getter
 @EqualsAndHashCode(exclude = {
-        "userId", "targetGymId"
+        "userId", "program"
 })
 @ToString(exclude = {
-        "userId", "targetGymId"
+        "userId", "program"
 })
 
 @Entity

@@ -62,7 +62,6 @@ public class LProgram {
     private Timestamp created;
 
     @Column(name = "changed")
-    @NotNull
     private Timestamp changed;
 
     @Column(name = "actively")

@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/rest/parameters")
 @RequiredArgsConstructor
-public class ParameterGymController{
+public class ParameterGymController {
 
     private final ParameterGymService service;
 
@@ -35,12 +35,13 @@ public class ParameterGymController{
     @GetMapping
     public ResponseEntity<List<ParameterGymDTO>> getAllParameters() {
         List<ParameterGymDTO> parametersGym = service.findAll().stream()
-                .map(this::convertToParameterGymDTO).collect(Collectors.toList());;
+                .map(this::convertToParameterGymDTO).collect(Collectors.toList());
+        ;
         return new ResponseEntity<>(parametersGym, HttpStatus.OK);
     }
 
-    @GetMapping("/{role_id}")
-    public ResponseEntity<ParameterGymDTO> getFindById(@PathVariable("role_id") Long id) {
+    @GetMapping("/{parameter_id}")
+    public ResponseEntity<ParameterGymDTO> getFindById(@PathVariable("parameter_id") Long id) {
 
         ParameterGymDTO parameterGymDTO =
                 convertToParameterGymDTO(service.findById(id));
@@ -50,7 +51,7 @@ public class ParameterGymController{
 
     @PostMapping("/{user_id}")
     public ResponseEntity<HttpStatus> createParameter(@PathVariable("user_id") Long userId,
-                                                 @RequestBody @Valid ParameterGymRequest parameter) {
+                                                      @RequestBody @Valid ParameterGymRequest parameter) {
 
         service.save(userId, convertToParameterGymRequest(parameter)/*convertToParameterGym(parameterGymDTO)*/);
         return ResponseEntity.ok(HttpStatus.CREATED);
@@ -58,8 +59,8 @@ public class ParameterGymController{
 
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateParameters(@PathVariable Long id,
-                                           @Valid @RequestBody ParameterGymUpdate parameterGymUpdate,
-                                           BindingResult bindingResult) {
+                                                       @Valid @RequestBody ParameterGymUpdate parameterGymUpdate,
+                                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }
@@ -78,15 +79,15 @@ public class ParameterGymController{
 
     }
 
-    private ParameterGymDTO convertToParameterGymDTO(ParameterGym parameterGym){
+    private ParameterGymDTO convertToParameterGymDTO(ParameterGym parameterGym) {
         return model.map(parameterGym, ParameterGymDTO.class);
     }
 
-    private ParameterGym convertToParameterGym(ParameterGymDTO parameterGymDTO){
+    private ParameterGym convertToParameterGym(ParameterGymDTO parameterGymDTO) {
         return model.map(parameterGymDTO, ParameterGym.class);
     }
 
-    private ParameterGym convertToParameterGymRequest(ParameterGymRequest parameter){
+    private ParameterGym convertToParameterGymRequest(ParameterGymRequest parameter) {
         return model.map(parameter, ParameterGym.class);
     }
 }
