@@ -16,4 +16,5 @@ public interface TrainingBlockService {
     TrainingBlock createTrainingBlock(TrainingBlock trainingBlock);
 
     TrainingBlock updateTrainingBlock(Long id, TrainingBlock trainingBlock);
+
 }

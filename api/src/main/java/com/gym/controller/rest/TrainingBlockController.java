@@ -39,7 +39,7 @@ public class TrainingBlockController {
     @GetMapping
     public ResponseEntity<List<TrainingResponse>> getAllTargets() {
         List<TrainingResponse> targetsGym = service.findAll().stream()
-                .map(this::convertToTraining).collect(Collectors.toList());;
+                .map(this::convertToTraining).collect(Collectors.toList());
         return new ResponseEntity<>(targetsGym, HttpStatus.OK);
     }
 

@@ -2,6 +2,7 @@ package com.gym.domain.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -10,18 +11,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -29,10 +35,10 @@ import java.sql.Timestamp;
 @Setter
 @Getter
 @EqualsAndHashCode(exclude = {
-       "programId"
+        "programId", "workouts"
 })
 @ToString(exclude = {
-        "programId"
+        "programId", "workouts"
 })
 
 @Entity
@@ -59,18 +65,19 @@ public class TrainingBlock {
     @Column(name = "created")
     private Timestamp created;
 
-@Column(name = "changed")
+    @Column(name = "changed")
     private Timestamp changed;
 
     @NotNull
     @Column(name = "actively")
     private boolean actively;
 
+    @OneToMany(mappedBy = "trainingBlockId", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+    @JsonManagedReference
+    private Set<Workouts> workouts = Collections.emptySet();
 
     @ManyToOne
     @JoinColumn(name = "parameter_target_id")
     @JsonBackReference
     private LProgram programId;
-
-
 }
