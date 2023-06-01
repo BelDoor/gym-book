@@ -53,7 +53,7 @@ public class ParameterGymController {
     public ResponseEntity<HttpStatus> createParameter(@PathVariable("user_id") Long userId,
                                                       @RequestBody @Valid ParameterGymRequest parameter) {
 
-        service.save(userId, convertToParameterGymRequest(parameter)/*convertToParameterGym(parameterGymDTO)*/);
+        service.save(userId, convertToParameterGymRequest(parameter));
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 

@@ -44,6 +44,7 @@ public class ParameterGymServiceImpl implements ParameterGymService {
         repository.save(parameterGym);
     }
 
+
     @Override
     @Transactional
     public ParameterGym createParameterGym(ParameterGym parameterGym) {

@@ -40,8 +40,8 @@ public class TargetGymController {
         return new ResponseEntity<>(targetsGym, HttpStatus.OK);
     }
 
-    @GetMapping("/{role_id}")
-    public ResponseEntity<TargetGymDTO> getFindById(@PathVariable("role_id") Long id) {
+    @GetMapping("/{target_id}")
+    public ResponseEntity<TargetGymDTO> getFindById(@PathVariable("target_id") Long id) {
 
         TargetGymDTO targetGymDTO =
                 convertToTargetGymDTO(service.findById(id));
