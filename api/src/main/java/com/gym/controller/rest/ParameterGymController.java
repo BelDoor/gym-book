@@ -36,7 +36,6 @@ public class ParameterGymController {
     public ResponseEntity<List<ParameterGymDTO>> getAllParameters() {
         List<ParameterGymDTO> parametersGym = service.findAll().stream()
                 .map(this::convertToParameterGymDTO).collect(Collectors.toList());
-        ;
         return new ResponseEntity<>(parametersGym, HttpStatus.OK);
     }
 
@@ -71,7 +70,7 @@ public class ParameterGymController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteRole(@PathVariable("id") Long id) {
+    public ResponseEntity<HttpStatus> deleteParameter(@PathVariable("id") Long id) {
 
         service.deleteParameter(id);
 

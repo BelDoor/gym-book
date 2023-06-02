@@ -1,10 +1,8 @@
 package com.gym.controller.rest;
 
-import com.gym.controller.dto.training.TrainingRequest;
 import com.gym.controller.dto.workouts.WorkoutRequest;
-import com.gym.domain.entity.TrainingBlock;
-import com.gym.domain.entity.Workouts;
-import com.gym.service.workouts.WorkoutsService;
+import com.gym.domain.entity.Workout;
+import com.gym.service.workouts.WorkoutService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -26,22 +24,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WorkoutController {
 
-    private final WorkoutsService service;
+    private final WorkoutService service;
 
     private final ModelMapper model;
 
 
     @GetMapping
-    public ResponseEntity<List<Workouts>> getAllWorkouts() {
-        List<Workouts> targetsGym = service.findAll();
-        return new ResponseEntity<>(targetsGym, HttpStatus.OK);
+    public ResponseEntity<List<Workout>> getAllWorkouts() {
+        List<Workout> workouts = service.findAll();
+        return new ResponseEntity<>(workouts, HttpStatus.OK);
     }
 
 
     @GetMapping("/{workout_id}")
-    public ResponseEntity<Workouts> getFindById(@PathVariable("workout_id") Long id) {
+    public ResponseEntity<Workout> getFindById(@PathVariable("workout_id") Long id) {
 
-        Workouts workout = service.findById(id);
+        Workout workout = service.findById(id);
 
         return new ResponseEntity<>(workout, HttpStatus.OK);
     }
@@ -62,13 +60,12 @@ public class WorkoutController {
             //TODO
         }
 
-        Workouts workout = service.updateWorkouts(id, convertToWorkouts(workoutRequest));
+        Workout workout = service.updateWorkouts(id, convertToWorkouts(workoutRequest));
 
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    private Workouts convertToWorkouts(WorkoutRequest workout) {
-        return model.map(workout, Workouts.class);
-
+    private Workout convertToWorkouts(WorkoutRequest workout) {
+        return model.map(workout, Workout.class);
     }
 }

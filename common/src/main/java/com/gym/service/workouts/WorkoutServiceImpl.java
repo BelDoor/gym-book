@@ -1,9 +1,8 @@
 package com.gym.service.workouts;
 
-import com.gym.domain.entity.LProgram;
 import com.gym.domain.entity.TrainingBlock;
-import com.gym.domain.entity.Workouts;
-import com.gym.repository.WorkoutsRepository;
+import com.gym.domain.entity.Workout;
+import com.gym.repository.WorkoutRepository;
 import com.gym.service.training.TrainingBlockService;
 import com.gym.util.exception.custom.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,26 +15,26 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class WorkoutsServiceImpl implements WorkoutsService {
+public class WorkoutServiceImpl implements WorkoutService {
 
-    private final WorkoutsRepository repository;
+    private final WorkoutRepository repository;
 
     private final TrainingBlockService training;
 
     @Override
-    public List<Workouts> findAll() {
-        List<Workouts> workouts = repository.findAll();
+    public List<Workout> findAll() {
+        List<Workout> workouts = repository.findAll();
         return workouts;
     }
 
     @Override
-    public Workouts findById(Long id) {
-        Optional<Workouts> workouts = repository.findById(id);
+    public Workout findById(Long id) {
+        Optional<Workout> workouts = repository.findById(id);
         return workouts.orElseThrow(UserNotFoundException::new);
     }
 
     @Override
-    public void save(Long trainingId, Workouts workout) {
+    public void save(Long trainingId, Workout workout) {
 
         TrainingBlock trainingBlock = training.findById(trainingId);
 
@@ -45,13 +44,13 @@ public class WorkoutsServiceImpl implements WorkoutsService {
     }
 
     @Override
-    public Workouts createWorkouts(Workouts workout) {
+    public Workout createWorkouts(Workout workout) {
         return repository.save(workout);
     }
 
     @Override
-    public Workouts updateWorkouts(Long id, Workouts workout) {
-        Workouts workoutUpdate = findById(id);
+    public Workout updateWorkouts(Long id, Workout workout) {
+        Workout workoutUpdate = findById(id);
 
         workoutUpdate.setNumTraining(workout.getNumTraining());
         workoutUpdate.setTargetWorkout(workout.getTargetWorkout());

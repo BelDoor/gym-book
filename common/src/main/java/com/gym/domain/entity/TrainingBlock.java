@@ -74,7 +74,7 @@ public class TrainingBlock {
 
     @OneToMany(mappedBy = "trainingBlockId", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
     @JsonManagedReference
-    private Set<Workouts> workouts = Collections.emptySet();
+    private Set<Workout> workouts = Collections.emptySet();
 
     @ManyToOne
     @JoinColumn(name = "parameter_target_id")
