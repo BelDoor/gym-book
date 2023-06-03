@@ -1,6 +1,7 @@
 package com.gym.controller.rest;
 
 import com.gym.controller.dto.workoutSet.WorkoutSetRequest;
+import com.gym.controller.dto.workoutSet.WorkoutSetResponse;
 import com.gym.controller.dto.workouts.WorkoutRequest;
 import com.gym.domain.entity.Workout;
 import com.gym.domain.entity.WorkoutSet;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/rest/workout_set")
@@ -31,8 +33,9 @@ public class WorkoutSetController {
     private final ModelMapper model;
 
     @GetMapping
-    public ResponseEntity<List<WorkoutSet>> getAllWorkoutSet() {
-        List<WorkoutSet> workoutSets = service.findAll();
+    public ResponseEntity<List<WorkoutSetResponse>> getAllWorkoutSet() {
+        List<WorkoutSetResponse> workoutSets = service.findAll().stream()
+                .map(this::convertToWorkoutSetResponse).collect(Collectors.toList());
         return new ResponseEntity<>(workoutSets, HttpStatus.OK);
     }
 
@@ -70,6 +73,10 @@ public class WorkoutSetController {
 
     private WorkoutSet convertToWorkoutSet(WorkoutSetRequest workoutSet) {
         return model.map(workoutSet, WorkoutSet.class);
+    }
+
+    private WorkoutSetResponse convertToWorkoutSetResponse(WorkoutSet workoutSet){
+        return model.map(workoutSet, WorkoutSetResponse.class);
     }
 
 }
