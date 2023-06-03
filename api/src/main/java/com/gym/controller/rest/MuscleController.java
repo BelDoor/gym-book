@@ -29,7 +29,7 @@ public class MuscleController {
     private final ModelMapper model;
 
     @GetMapping
-    public ResponseEntity<List<CMuscle>> getAllPMuscle() {
+    public ResponseEntity<List<CMuscle>> getAllMuscle() {
         List<CMuscle> cMuscles = service.findAll();
         return new ResponseEntity<>(cMuscles, HttpStatus.OK);
     }
@@ -43,7 +43,7 @@ public class MuscleController {
     }
 
     @PostMapping()
-    public ResponseEntity<HttpStatus> createParameter(@RequestBody @Valid MuscleRequest muscle) {
+    public ResponseEntity<HttpStatus> createMuscle(@RequestBody @Valid MuscleRequest muscle) {
 
         service.save(convertToMuscle(muscle));
         return ResponseEntity.ok(HttpStatus.CREATED);
@@ -51,8 +51,8 @@ public class MuscleController {
 
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateMuscle(@PathVariable Long id,
-                                                       @Valid @RequestBody MuscleRequest muscle,
-                                                       BindingResult bindingResult) {
+                                                   @Valid @RequestBody MuscleRequest muscle,
+                                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }

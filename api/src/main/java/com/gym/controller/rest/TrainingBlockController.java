@@ -1,14 +1,8 @@
 package com.gym.controller.rest;
 
-import com.gym.controller.dto.parameter.ParameterGymRequest;
-import com.gym.controller.dto.target.TargetGymDTO;
 import com.gym.controller.dto.training.TrainingRequest;
 import com.gym.controller.dto.training.TrainingResponse;
-import com.gym.domain.entity.TargetGym;
 import com.gym.domain.entity.TrainingBlock;
-import com.gym.domain.entity.parameter.ParameterGym;
-import com.gym.domain.entity.parameter.ParameterGymUpdate;
-import com.gym.service.target.TargetGymService;
 import com.gym.service.training.TrainingBlockService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -37,7 +31,7 @@ public class TrainingBlockController {
     private final ModelMapper model;
 
     @GetMapping
-    public ResponseEntity<List<TrainingResponse>> getAllTargets() {
+    public ResponseEntity<List<TrainingResponse>> getAllTraining() {
         List<TrainingResponse> targetsGym = service.findAll().stream()
                 .map(this::convertToTraining).collect(Collectors.toList());
         return new ResponseEntity<>(targetsGym, HttpStatus.OK);
@@ -52,17 +46,17 @@ public class TrainingBlockController {
     }
 
     @PostMapping("/{program_id}")
-    public ResponseEntity<HttpStatus> createParameter(@PathVariable("program_id") Long programId,
-                                                      @RequestBody @Valid TrainingRequest training) {
+    public ResponseEntity<HttpStatus> createTraining(@PathVariable("program_id") Long programId,
+                                                     @RequestBody @Valid TrainingRequest training) {
 
         service.save(programId, convertToTrainingBlock(training));
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @PutMapping("/{training_id}")
-    public ResponseEntity<HttpStatus> updateParameters(@PathVariable("training_id") Long id,
-                                                       @Valid @RequestBody TrainingRequest training,
-                                                       BindingResult bindingResult) {
+    public ResponseEntity<HttpStatus> updateTraining(@PathVariable("training_id") Long id,
+                                                     @Valid @RequestBody TrainingRequest training,
+                                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }
@@ -73,14 +67,13 @@ public class TrainingBlockController {
     }
 
 
-    private TrainingResponse convertToTraining(TrainingBlock training){
+    private TrainingResponse convertToTraining(TrainingBlock training) {
         return model.map(training, TrainingResponse.class);
     }
 
-    private TrainingBlock convertToTrainingBlock(TrainingRequest training){
+    private TrainingBlock convertToTrainingBlock(TrainingRequest training) {
         return model.map(training, TrainingBlock.class);
     }
-
 
 
 }

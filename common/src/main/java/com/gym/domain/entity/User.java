@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Set;
@@ -75,7 +76,7 @@ public class  User {
     private String userEmail;
 
     @Column(name = "user_phone_number")
-//    @NotEmpty
+    @NotNull
     private Long userPhone;
 
     @JsonIgnore

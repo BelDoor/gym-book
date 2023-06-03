@@ -1,16 +1,9 @@
 package com.gym.controller.rest;
 
-
 import com.gym.controller.dto.log_workout.LogWorkoutRequest;
 import com.gym.controller.dto.log_workout.LogWorkoutResponse;
-import com.gym.controller.dto.workoutSet.WorkoutSetRequest;
-import com.gym.controller.dto.workoutSet.WorkoutSetResponse;
-import com.gym.controller.dto.workouts.WorkoutRequest;
 import com.gym.domain.entity.LogWorkout;
-import com.gym.domain.entity.Workout;
-import com.gym.domain.entity.WorkoutSet;
 import com.gym.service.log_workout.LogWorkoutService;
-import com.gym.service.workouts.WorkoutService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -54,7 +47,7 @@ public class LogWorkoutController {
 
     @PostMapping("/{workout_set_id}")
     public ResponseEntity<HttpStatus> createLogWorkout(@PathVariable("workout_set_id") Long workoutSetId,
-                                                    @RequestBody @Valid LogWorkoutRequest LogWorkout) {
+                                                       @RequestBody @Valid LogWorkoutRequest LogWorkout) {
 
         service.save(workoutSetId, convertToLogWorkout(LogWorkout));
         return ResponseEntity.ok(HttpStatus.CREATED);
@@ -74,11 +67,11 @@ public class LogWorkoutController {
     }
 
 
-    private LogWorkout convertToLogWorkout(LogWorkoutRequest logWorkoutRequest){
+    private LogWorkout convertToLogWorkout(LogWorkoutRequest logWorkoutRequest) {
         return model.map(logWorkoutRequest, LogWorkout.class);
     }
 
-    private LogWorkoutResponse convertToLogWorkoutResponse(LogWorkout logWorkout){
+    private LogWorkoutResponse convertToLogWorkoutResponse(LogWorkout logWorkout) {
         return model.map(logWorkout, LogWorkoutResponse.class);
     }
 

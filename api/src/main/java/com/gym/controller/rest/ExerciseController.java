@@ -1,11 +1,8 @@
 package com.gym.controller.rest;
 
 import com.gym.controller.dto.exercise.ExerciseRequest;
-import com.gym.controller.dto.muscle.MuscleRequest;
 import com.gym.domain.entity.CExercise;
-import com.gym.domain.entity.CMuscle;
 import com.gym.service.exercise.ExerciseService;
-import com.gym.service.muscle.MuscleService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -55,8 +52,8 @@ public class ExerciseController {
 
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateExercise(@PathVariable Long id,
-                                                   @Valid @RequestBody ExerciseRequest exercise,
-                                                   BindingResult bindingResult) {
+                                                     @Valid @RequestBody ExerciseRequest exercise,
+                                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }

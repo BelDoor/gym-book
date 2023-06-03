@@ -82,10 +82,6 @@ public class ParameterGymController {
         return model.map(parameterGym, ParameterGymDTO.class);
     }
 
-    private ParameterGym convertToParameterGym(ParameterGymDTO parameterGymDTO) {
-        return model.map(parameterGymDTO, ParameterGym.class);
-    }
-
     private ParameterGym convertToParameterGymRequest(ParameterGymRequest parameter) {
         return model.map(parameter, ParameterGym.class);
     }

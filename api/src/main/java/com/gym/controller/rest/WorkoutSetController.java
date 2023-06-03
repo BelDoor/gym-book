@@ -2,8 +2,6 @@ package com.gym.controller.rest;
 
 import com.gym.controller.dto.workoutSet.WorkoutSetRequest;
 import com.gym.controller.dto.workoutSet.WorkoutSetResponse;
-import com.gym.controller.dto.workouts.WorkoutRequest;
-import com.gym.domain.entity.Workout;
 import com.gym.domain.entity.WorkoutSet;
 import com.gym.service.workout_set.WorkoutSetService;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +49,7 @@ public class WorkoutSetController {
     @PostMapping("/{workout_id}/{exercise_id}")
     public ResponseEntity<HttpStatus> createWorkoutSet(@PathVariable("workout_id") Long workoutId,
                                                        @PathVariable("exercise_id") Long exerciseId,
-                                                    @RequestBody @Valid WorkoutSetRequest workoutSet) {
+                                                       @RequestBody @Valid WorkoutSetRequest workoutSet) {
 
         service.save(workoutId, exerciseId, convertToWorkoutSet(workoutSet));
         return ResponseEntity.ok(HttpStatus.CREATED);
@@ -59,8 +57,8 @@ public class WorkoutSetController {
 
     @PutMapping("/{workout_set_id}")
     public ResponseEntity<HttpStatus> updateWorkoutSet(@PathVariable("workout_set_id") Long id,
-                                                    @Valid @RequestBody WorkoutSetRequest workoutSet,
-                                                    BindingResult bindingResult) {
+                                                       @Valid @RequestBody WorkoutSetRequest workoutSet,
+                                                       BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }
@@ -75,7 +73,7 @@ public class WorkoutSetController {
         return model.map(workoutSet, WorkoutSet.class);
     }
 
-    private WorkoutSetResponse convertToWorkoutSetResponse(WorkoutSet workoutSet){
+    private WorkoutSetResponse convertToWorkoutSetResponse(WorkoutSet workoutSet) {
         return model.map(workoutSet, WorkoutSetResponse.class);
     }
 

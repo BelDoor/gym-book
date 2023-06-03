@@ -3,8 +3,6 @@ package com.gym.controller.rest;
 import com.gym.controller.dto.target.TargetGymDTO;
 import com.gym.controller.dto.target.TargetGymRequest;
 import com.gym.domain.entity.TargetGym;
-import com.gym.domain.entity.parameter.ParameterGym;
-import com.gym.domain.entity.parameter.ParameterGymUpdate;
 import com.gym.service.target.TargetGymService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -36,7 +34,8 @@ public class TargetGymController {
     @GetMapping
     public ResponseEntity<List<TargetGymDTO>> getAllTargets() {
         List<TargetGymDTO> targetsGym = service.findAll().stream()
-                .map(this::convertToTargetGymDTO).collect(Collectors.toList());;
+                .map(this::convertToTargetGymDTO).collect(Collectors.toList());
+        ;
         return new ResponseEntity<>(targetsGym, HttpStatus.OK);
     }
 
@@ -51,7 +50,7 @@ public class TargetGymController {
 
     @PostMapping("/{user_id}")
     public ResponseEntity<HttpStatus> createTarget(@PathVariable("user_id") Long userId,
-                                                      @RequestBody @Valid TargetGymRequest target) {
+                                                   @RequestBody @Valid TargetGymRequest target) {
 
         service.save(userId, convertToTargetGym(target));
         return ResponseEntity.ok(HttpStatus.CREATED);
@@ -59,8 +58,8 @@ public class TargetGymController {
 
     @PutMapping("/{target_id}")
     public ResponseEntity<HttpStatus> updateTarget(@PathVariable("target_id") Long id,
-                                                       @Valid @RequestBody TargetGymRequest target,
-                                                       BindingResult bindingResult) {
+                                                   @Valid @RequestBody TargetGymRequest target,
+                                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }
@@ -71,7 +70,7 @@ public class TargetGymController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteRole(@PathVariable("id") Long id) {
+    public ResponseEntity<HttpStatus> deleteTarget(@PathVariable("id") Long id) {
 
         service.deleteTarget(id);
 
@@ -79,11 +78,11 @@ public class TargetGymController {
 
     }
 
-    private TargetGymDTO convertToTargetGymDTO(TargetGym targetGym){
+    private TargetGymDTO convertToTargetGymDTO(TargetGym targetGym) {
         return model.map(targetGym, TargetGymDTO.class);
     }
 
-    private TargetGym convertToTargetGym(TargetGymRequest target){
+    private TargetGym convertToTargetGym(TargetGymRequest target) {
         return model.map(target, TargetGym.class);
     }
 

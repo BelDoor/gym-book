@@ -45,7 +45,7 @@ public class RoleController {
     }
 
     @GetMapping("/{role_name}")
-    public ResponseEntity<List<RoleDTO>> getFindById(@PathVariable("role_name") String name) {
+    public ResponseEntity<List<RoleDTO>> getFindByRoleName(@PathVariable("role_name") String name) {
 
         List<RoleDTO> role = service.findByRoleName(name).stream()
                 .map(this::convertToRoleDto).collect(Collectors.toList());
@@ -66,10 +66,6 @@ public class RoleController {
         service.deleteRole(id);
         return ResponseEntity.ok(HttpStatus.OK);
 
-    }
-
-    private Role convertToRole(RoleDTO roleDTO) {
-        return model.map(roleDTO, Role.class);
     }
 
     private RoleDTO convertToRoleDto(Role role) {

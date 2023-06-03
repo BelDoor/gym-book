@@ -3,10 +3,7 @@ package com.gym.controller.rest;
 import com.gym.controller.dto.program.ProgramDTO;
 import com.gym.controller.dto.program.ProgramRequest;
 import com.gym.domain.entity.LProgram;
-import com.gym.domain.entity.parameter.ParameterGym;
-import com.gym.domain.entity.parameter.ParameterGymUpdate;
 import com.gym.repository.LProgrameRepository;
-import com.gym.repository.ParameterGymRepository;
 import com.gym.service.program.LProgramService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -48,16 +45,15 @@ public class ProgramController {
     @GetMapping("/{program_id}")
     public ResponseEntity<ProgramDTO> getFindById(@PathVariable("program_id") Long id) {
 
-        ProgramDTO program =
-                converterToProgramDTO(service.findById(id));
+        ProgramDTO program = converterToProgramDTO(service.findById(id));
 
         return new ResponseEntity<>(program, HttpStatus.OK);
     }
 
     @PostMapping("/{parameter_id}/{target_id}")
-    public ResponseEntity<HttpStatus> createParameter(@PathVariable("parameter_id") Long parameterId,
-                                                      @PathVariable("target_id") Long targetId,
-                                                      @RequestBody @Valid ProgramRequest program) {
+    public ResponseEntity<HttpStatus> createProgram(@PathVariable("parameter_id") Long parameterId,
+                                                    @PathVariable("target_id") Long targetId,
+                                                    @RequestBody @Valid ProgramRequest program) {
 
         service.save(parameterId, targetId, converterToLProgram(program));
         return ResponseEntity.ok(HttpStatus.CREATED);
@@ -65,8 +61,8 @@ public class ProgramController {
 
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateProgram(@PathVariable Long id,
-                                                       @Valid @RequestBody ProgramRequest program,
-                                                       BindingResult bindingResult) {
+                                                    @Valid @RequestBody ProgramRequest program,
+                                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }
@@ -77,7 +73,7 @@ public class ProgramController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteProgram(@PathVariable Long id){
+    public ResponseEntity<HttpStatus> deleteProgram(@PathVariable Long id) {
         repository.deleteById(id);
 
         return ResponseEntity.ok(HttpStatus.OK);

@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface TargetGymRepository extends JpaRepository<TargetGym, Long> {
 
-    @Query( value = "DELETE target_gym  WHERE target_id = :id", nativeQuery = true)
+    @Query( value = "DELETE FROM target_gym  WHERE target_id = :id", nativeQuery = true)
     void deleteTargetGym(Long id);
 }

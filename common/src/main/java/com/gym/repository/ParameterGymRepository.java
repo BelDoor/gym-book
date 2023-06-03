@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ParameterGymRepository extends JpaRepository<ParameterGym, Long> {
 
-    @Query( value = "DELETE parameters_gym  WHERE parameter_id = :id", nativeQuery = true)
+    @Query( value = "DELETE FROM parameters_gym  WHERE parameter_id = :id", nativeQuery = true)
     void deleteParameter(Long id);
 
 }

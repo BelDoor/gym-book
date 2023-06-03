@@ -1,7 +1,7 @@
 package com.gym.controller.rest;
 
-
-import com.gym.controller.dto.UserDTO;
+import com.gym.controller.dto.user.UserDTO;
+import com.gym.controller.dto.user.UserRequest;
 import com.gym.domain.entity.User;
 import com.gym.service.user.UserService;
 import com.gym.util.exception.custom.UserNotFoundException;
@@ -49,26 +49,26 @@ public class UsersController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> save(@RequestBody @Valid UserDTO userDTO,
-                                           BindingResult bindingResult){
+    public ResponseEntity<HttpStatus> save(@RequestBody @Valid UserRequest userRequest,
+                                           BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
             //TODO
         }
 
-        userService.save(convertToUser(userDTO));
+        userService.save(convertToUser(userRequest));
         return ResponseEntity.ok(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<User> updateUser(@PathVariable Long id,
-                                           @Valid @RequestBody UserDTO userDTO,
+                                           @Valid @RequestBody UserRequest userRequest,
                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }
 
-        User updatedUser = userService.update(id, convertToUser(userDTO));
+        User updatedUser = userService.update(id, convertToUser(userRequest));
 
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
@@ -89,12 +89,12 @@ public class UsersController {
         return new ResponseEntity<>(userError, HttpStatus.NOT_FOUND);
     }
 
-    private User convertToUser(UserDTO userDto) {
-        return modelMapper.map(userDto, User.class);
-    }
-
     private UserDTO convertToUserDto(User user) {
         return modelMapper.map(user, UserDTO.class);
+    }
+
+    private User convertToUser(UserRequest userRequest) {
+        return modelMapper.map(userRequest, User.class);
     }
 
 

@@ -46,7 +46,7 @@ public class WorkoutController {
 
     @PostMapping("/{training_id}")
     public ResponseEntity<HttpStatus> createWorkout(@PathVariable("training_id") Long workoutId,
-                                                      @RequestBody @Valid WorkoutRequest workout) {
+                                                    @RequestBody @Valid WorkoutRequest workout) {
 
         service.save(workoutId, convertToWorkouts(workout));
         return ResponseEntity.ok(HttpStatus.CREATED);
@@ -54,8 +54,8 @@ public class WorkoutController {
 
     @PutMapping("/{workout_id}")
     public ResponseEntity<HttpStatus> updateWorkout(@PathVariable("workout_id") Long id,
-                                                       @Valid @RequestBody WorkoutRequest workoutRequest,
-                                                       BindingResult bindingResult) {
+                                                    @Valid @RequestBody WorkoutRequest workoutRequest,
+                                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             //TODO
         }
