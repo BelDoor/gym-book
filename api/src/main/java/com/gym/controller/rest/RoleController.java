@@ -1,6 +1,7 @@
 package com.gym.controller.rest;
 
 import com.gym.controller.dto.RoleDTO;
+import com.gym.controller.dto.RoleResponse;
 import com.gym.domain.entity.Role;
 import com.gym.service.role.RoleService;
 import lombok.AllArgsConstructor;
@@ -36,12 +37,12 @@ public class RoleController {
         return new ResponseEntity<>(role, HttpStatus.OK);
     }
 
-    @GetMapping("/{role_id}")
-    public ResponseEntity<RoleDTO> getFindById(@PathVariable("role_id") Long id) {
+    @GetMapping("s/{role_id}")
+    public ResponseEntity<RoleResponse> getFindById(@PathVariable("role_id") Long id) {
 
         Role role = service.findById(id);
 
-        return new ResponseEntity<>(convertToRoleDto(role), HttpStatus.OK);
+        return new ResponseEntity<>(convertToRoleRespons(role), HttpStatus.OK);
     }
 
     @GetMapping("/{role_name}")
@@ -70,6 +71,10 @@ public class RoleController {
 
     private RoleDTO convertToRoleDto(Role role) {
         return model.map(role, RoleDTO.class);
+    }
+
+    private RoleResponse convertToRoleRespons(Role role) {
+        return model.map(role, RoleResponse.class);
     }
 
 }

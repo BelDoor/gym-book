@@ -1,6 +1,7 @@
 package com.gym.controller.dto.target;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.gym.domain.entity.LProgram;
 import com.gym.domain.entity.User;
 import lombok.Data;
 
@@ -9,6 +10,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.Set;
 
 @Data
 public class TargetGymDTO {
@@ -41,4 +44,6 @@ public class TargetGymDTO {
             "gender", "surname", "birthday", "parameterGyms", "roles", "userPhone", "targetGyms"})
     private User user;
 
+    @JsonIgnoreProperties({"targetGymId"})
+    private Set<LProgram> program = Collections.emptySet();
 }
