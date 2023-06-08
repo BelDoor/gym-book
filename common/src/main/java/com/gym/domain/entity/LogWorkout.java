@@ -68,4 +68,9 @@ public class LogWorkout {
     @JsonBackReference
     private WorkoutSet workoutSet;
 
+    @Column(name = "num_set")
+    @NotNull
+    @Positive
+    private Integer numSet;
+
 }

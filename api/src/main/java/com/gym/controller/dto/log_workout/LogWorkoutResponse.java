@@ -19,6 +19,9 @@ public class LogWorkoutResponse {
     @Positive
     private Integer logRepetitions;
 
-  //  @JsonIgnoreProperties({"logWorkout"})
+    @NotNull
+    @Positive
+    private Integer numSet;
+
     private WorkoutSet workoutSet;
 }

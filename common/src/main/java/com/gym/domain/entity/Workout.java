@@ -51,7 +51,7 @@ public class Workout {
             sequenceName = "workouts_workout_id_seq", allocationSize = 1, initialValue = 100)
     private Long blockId;
 
-    @Column(name = "num_day")
+    @Column(name = "num_training")
     @Positive
     @NotNull
     private Integer numTraining;

@@ -16,4 +16,8 @@ public class LogWorkoutRequest {
     @Positive
     private Integer logRepetitions;
 
+    @NotNull
+    @Positive
+    private Integer numSet;
+
 }
